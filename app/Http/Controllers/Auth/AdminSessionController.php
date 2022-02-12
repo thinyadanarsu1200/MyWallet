@@ -19,6 +19,11 @@ class AdminSessionController extends Controller
 
     $request->authenticate('admin');
 
+    $admin = auth()->guard('admin')->user(); //() returns can create/update
+    $admin->ip = $request->ip();
+    $admin->user_agent = $request->server('HTTP_USER_AGENT');
+    $admin->update();
+
     $request->session()->regenerate();
 
     return redirect('/admin');
@@ -34,4 +39,13 @@ class AdminSessionController extends Controller
 
     return response()->json(['message' => 'logout successfully']);
   }
+
+  // public function authenticate(Request $request, $user)
+  // {
+  //   return $user;
+  //   $user->ip = $request->ip();
+  //   $user->user_agent = $request->user_agent();
+  //   $user->update();
+  //   return redirect(RouteServiceProvider::ADMINPANEL);
+  // }
 }

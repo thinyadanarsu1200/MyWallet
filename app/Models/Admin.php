@@ -16,11 +16,7 @@ class Admin extends Authenticatable
    *
    * @var array<int, string>
    */
-  protected $fillable = [
-    'name',
-    'email',
-    'password',
-  ];
+  protected $guarded = [];
 
   /**
    * The attributes that should be hidden for serialization.
@@ -41,6 +37,16 @@ class Admin extends Authenticatable
     'email_verified_at' => 'datetime',
   ];
 
+  public function getNameAttribute($name)
+  {
+    return ucwords($name);
+  }
+
+  public function setPasswordAttribute($password)
+  {
+    $this->attributes['password'] = bcrypt($password);
+  }
+
   public function scopeFilter($query, array $filters)
   {
     $query->when($filters['search'] ?? false, fn($query, $search) =>
@@ -49,5 +55,14 @@ class Admin extends Authenticatable
           ->orWhere('email', 'like', '%' . $search . '%')
           ->orWhere('phone', 'like', '%' . $search . '%')
       ));
+  }
+
+  public function profileImage()
+  {
+    if ($this->image) {
+      return asset('storage/' . $this->image);
+    } else {
+      return null;
+    }
   }
 }

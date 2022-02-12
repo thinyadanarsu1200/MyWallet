@@ -35,7 +35,7 @@
     <section class="mx-auto p-3 md:p-4" style="max-width: 1500px;">
       <!-- Main Content Header -->
       <header class="flex items-center mb-4">
-        <div class="mr-5 bg-white text-gray-300 p-4 rounded-lg m-shadow">
+        <div class="mr-5 bg-white text-gray-300 p-3 w-11 h-50 rounded-lg m-shadow">
           {{ $icon ?? null }}
         </div>
         <h1 class="text-gray-500 text-xl font-semibold">{{ $title }}</h1>
@@ -45,6 +45,8 @@
       <div class="rounded-lg overflow-hidden m-shadow">
         {{ $slot }}
       </div>
+      <div id="show-toast"></div>
+
     </section>
   </main><!-- Main Content End -->
 
@@ -120,6 +122,31 @@
         body.classList.remove('active');
       }
     })
+
+    @if (session('success'))
+      Swal.fire({
+      text: 'Admin is created successfully',
+      target: '.show-toast',
+      customClass: {
+      container: 'position-absolute'
+      },
+      showConfirmButton: false,
+      toast: true,
+      icon: 'success',
+      position: 'bottom-right',
+      timerProgressBar: true,
+      })
+    @endif
+
+
+    @if (session('error'))
+      Toast.fire({
+      title: 'Error Message',
+      text: '{{ session('error') }}',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+      });
+    @endif
   </script>
   {{ $js ?? null }}
 </body>

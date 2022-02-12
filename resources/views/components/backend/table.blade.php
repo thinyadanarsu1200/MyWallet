@@ -10,7 +10,7 @@
           <div class="flex">
             @php
               $remove_icon = array_intersect($admins->pluck('id')->toArray(), $admins_id) && array_diff($admins->pluck('id')->toArray(), $admins_id) ? 'remove-check' : '';
-              $check_icon = !count(array_diff($admins->pluck('id')->toArray(), $admins_id)) ? 'checked' : '';
+              $check_icon = array_intersect($admins->pluck('id')->toArray(), $admins_id) && !count(array_diff($admins->pluck('id')->toArray(), $admins_id)) ? 'checked' : '';
             @endphp
             <input type="checkbox" id="global-check" {{ $check_icon }}
               class="{{ $remove_icon }} mr-3 rounded-sm global-check bg-gray-100" />
@@ -57,10 +57,10 @@
           </div>
         </th>
         <th scope="col" data-field="status" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Status
+          IP
         </th>
         <th scope="col" data-field="role" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Role
+          User Agent
         </th>
         <th scope="col" class="relative px-6 py-3">
           <span class="sr-only">Edit</span>
@@ -75,6 +75,19 @@
               <div class="flex items-center">
                 <input data-id="{{ $admin->id }}" {{ in_array($admin->id, $admins_id) ? 'checked' : '' }} type="checkbox" class="local-check rounded-sm bg-gray-100 mr-4">
               </div>
+              <x-dropdown2 class="ml-0 lg:hidden" direction="left">
+                <x-slot name="trigger">
+                  <button id="action-btn" type="button"
+                    class="hover:text-gray-500 focus:outline-none mr-3 text-gray-400 flex items-center justify-center cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 pointer-events-none" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                    </svg>
+                  </button>
+                </x-slot>
+                <x-dropdown2-link href="#">Edit</x-dropdown2-link>
+                <x-dropdown2-link href="#">View</x-dropdown2-link>
+                <x-dropdown2-link href="#">Delete</x-dropdown2-link>
+              </x-dropdown2>
               <div class="h-10 w-10">
                 <img class="min-w-max rounded-full"
                   src="https://ui-avatars.com/api/?format=svg&rounded=true&size=35&name={{ $admin->name }}" alt="">
@@ -92,17 +105,50 @@
           <td class="px-6 py-4 whitespace-nowrap">
             <div class="text-sm text-gray-900">{{ $admin->phone }}</div>
           </td>
+          @if ($admin->ip)
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">{{ $admin->ip }}</div>
+            </td>
+          @else
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="text-center text-xs text-gray-400 tracking-wide">No ip yet!</span>
+            </td>
+          @endif
           <td class="px-6 py-4 whitespace-nowrap">
-            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-              Active
-            </span>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            Admin
+            <div class="text-sm text-gray-900">
+              @php
+                $agent->setUserAgent($admin->user_agent);
+                $device = $agent->device();
+                $platform = $agent->platform();
+                $browser = $agent->browser();
+              @endphp
+              @if ($admin->user_agent)
+                <div class="border border-gray-200 shadow rounded-md overflow-hidden overflow-x-auto">
+                  <table class="w-full  divide-y divide-gray-200">
+                    <thead class="bg-gray-100 border-b border-gray-200">
+                      <tr>
+                        <th class="cursor-pointer whitespace-nowrap px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Device</th>
+                        <th class="cursor-pointer whitespace-nowrap px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Platform</th>
+                        <th class="cursor-pointer whitespace-nowrap px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Browser</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="bg-white even:bg-gray-100">
+                        <td class="px-3 py-2 whitespace-nowrap">{{ $device }}</td>
+                        <td class="px-3 py-2 whitespace-nowrap">{{ $platform }}</td>
+                        <td class="px-3 py-2 whitespace-nowrap">{{ $browser }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              @else
+                <span class="text-center text-xs text-gray-400 tracking-wide">No user agent yet!</span>
+              @endif
+            </div>
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
             <div class="flex items-center justify-end flex-nowrap gap-x-1">
-              <a href="#" class="text-indigo-600 hover:text-indigo-900 flex items-center mr-1">
+              <a href="{{ route('admin.admin-user.edit', $admin->id) }}" class="text-indigo-600 hover:text-indigo-900 flex items-center mr-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -116,7 +162,8 @@
                 </svg>
               </a>
               <button class="text-red-600 hover:text-red-900 flex items-center mr-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="delete-one h-4 w-4" data-id="{{ $admin->id }}" data-name="{{ $admin->name }}" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>

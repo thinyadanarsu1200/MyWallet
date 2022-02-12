@@ -1,12 +1,20 @@
 <x-backend.app title="Admin User Management">
   <x-slot name="icon">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
         d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
     </svg>
   </x-slot>
 
   <x-backend.main-panel>
+    <div>
+      <a href="{{ route('admin.admin-user.create') }}" class="btn-primary mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+        </svg>
+        Create Admin
+      </a>
+    </div>
     <!-- header -->
     <div class="table-header flex items-center justify-between">
       <div class="flex items-center">
@@ -70,6 +78,16 @@
         focusConfirm: false,
         customClass: {
           confirmButton: ''
+        }
+      }
+
+      const sweet_alert_delete_setting = {
+        ...sweet_alert_setting,
+        title: "Title",
+        text: 'Once you delete , you will not get back!!!',
+        confirmButtonText: 'DELETE',
+        customClass: {
+          confirmButton: 'swal2-delete-btn',
         }
       }
       // renderTableDefault
@@ -292,13 +310,11 @@
         selected.classList.remove('active');
       })
 
+
       // options selected delete btn
       delete_selected.addEventListener('click', e => {
-        sweet_alert_setting.title = `Are you sure to delete ${admins_id.length} selected records?`;
-        sweet_alert_setting.text = 'Once you delete , you will not get back!!!';
-        sweet_alert_setting.confirmButtonText = 'Delete';
-        sweet_alert_setting.customClass.confirmButton = 'swal2-delete-btn';
-        Swal.fire(sweet_alert_setting).then((result) => {
+        sweet_alert_delete_setting.title = `Are you sure to delete ${admins_id.length} selected records?`;
+        Swal.fire(sweet_alert_delete_setting).then((result) => {
           if (result.isConfirmed) {
             axios({
               method: 'DELETE',
@@ -309,8 +325,8 @@
                 showTable();
                 selected.classList.remove('active');
                 Swal.fire(
-                  'Deleted!',
-                  res.data,
+                  res.data.status,
+                  res.data.message,
                   'success'
                 )
               }
@@ -325,6 +341,42 @@
           checkbox.checked && selected_admins_id.push(checkbox.dataset.id);
         })
       })
+
+      //delete-one
+      document.addEventListener('click', e => {
+        if (e.target.classList.contains('delete-one')) {
+          const delete_id = e.target.dataset.id;
+          const delete_name = e.target.dataset.name;
+          sweet_alert_delete_setting.title = `Are you sure to delete ${delete_name}'s record?`;
+          Swal.fire(sweet_alert_delete_setting).then((result) => {
+            if (result.isConfirmed) {
+              axios({
+                method: 'DELETE',
+                url: `/admin/admin-user/${delete_id}`
+              }).then(res => {
+                if (res.data) {
+                  admins_id = [];
+                  showTable();
+                  selected.classList.remove('active');
+                  Swal.fire(
+                    res.data.status,
+                    res.data.message,
+                    'success'
+                  )
+                }
+              })
+            }
+          }).catch(err => {
+            console.error(err);
+          })
+          const local_checks = document.querySelectorAll('.local-check');
+          const selected_admins_id = [];
+          local_checks.forEach(checkbox => {
+            checkbox.checked && selected_admins_id.push(checkbox.dataset.id);
+          })
+        }
+      })
+
 
       // options selected archive btn
       archieve.addEventListener('click', e => {

@@ -2,3 +2,29 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.btn {
+    @apply shadow-sm hover:bg-gray-50 disabled:opacity-25 focus:outline-none focus:ring-2 ring-indigo-500 ring-offset-2 inline-flex items-center justify-center bg-white text-gray-700 border border-gray-300 text-sm tracking-wide rounded-lg;
+}
+
+.btn-primary {
+    @apply hover:bg-indigo-600 disabled:opacity-25 focus:outline-none focus:ring-2 ring-indigo-300 ring-offset-2 inline-flex items-center justify-center bg-indigo-500 text-white text-sm tracking-wide  rounded-lg;
+}
+
+.form-control {
+    @apply mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md;
+}
+
+.form-label {
+    @apply block text-sm font-medium text-gray-700;
+}
+
+.error {
+    border: 1px solid var(--red-500);
+}
+
+.error:focus {
+    outline: none !important;
+    border-color: var(--red-500) !important;
+    box-shadow: 0 0 1px var(--red-500) !important;
+}

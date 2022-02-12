@@ -1,3 +1,17 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"); */
+
+:root {
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --indigo-500: #6366f1;
+    --red-500: #ef4444;
+    --font-poppins: "Poppins";
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+}
+
 body {
     background-color: #f2f2f2;
     overflow-x: hidden;
@@ -172,7 +186,7 @@ body {
 }
 
 .select2-container .select2-selection--single {
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--gray-300);
     border-radius: 0.457rem;
     min-height: 42px !important;
     display: flex;
@@ -332,31 +346,84 @@ checks.checked {
     visibility: visible;
 }
 
-/* Sweet Alert */
+/* =========== Sweet Alert =============== */
 .swal2-popup {
-    border-radius: 1rem !important;
     width: 30em !important;
-}
-
-.swal2-html-container {
-    font-size: 1em !important;
-}
-
-.swal2-styled.swal2-confirm,
-.swal2-cancel {
-    border-radius: 0.5em !important;
-    font-size: 0.875em;
+    border-radius: 1rem !important;
+    padding: 0 0 1em !important;
+    font-family: var(--font-poppins) !important;
 }
 
 .swal2-title {
     font-size: 1.2em !important;
+    padding: 1em 1em 0 !important;
+}
+
+.swal2-html-container {
+    font-size: 0.875em !important;
+}
+
+.swal2-icon {
+    margin: 1em auto 0 !important;
+}
+
+.swal2-styled.swal2-confirm,
+.swal2-styled.swal2-cancel {
+    font-size: 0.875em !important;
+    border-radius: 0.5em !important;
+    padding-top: 10px !important;
+    border-radius: 0.6em !important;
 }
 
 .swal2-styled.swal2-cancel {
-    background-color: #e5e7eb !important;
-    color: rgb(79, 71, 71) !important;
+    background-color: var(--gray-200) !important;
+    color: #333 !important;
+}
+
+.swal2-styled.swal2-cancel:focus {
+    box-shadow: 0 0 0 2px #ccc !important;
 }
 
 .swal2-delete-btn {
-    background-color: #ef4444 !important;
+    background-color: var(--red-500) !important;
+}
+
+.btn,
+.btn-primary {
+    padding: 0.6rem 1rem;
+}
+
+/* Toast */
+.show-toast {
+    position: relative;
+    width: 600px;
+    height: 300px;
+    border-style: solid;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.swal2-popup.swal2-toast.swal2-show {
+    padding: 5px 10px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 300px !important;
+}
+
+.delete-profile-image-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    backdrop-filter: blur(20px);
 }
