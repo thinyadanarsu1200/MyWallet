@@ -6,11 +6,15 @@ use Illuminate\View\Component;
 
 class App extends Component
 {
-  public $main_title;
-
-  public function __construct($main_title)
+  /**
+   * Create a new component instance.
+   *
+   * @return void
+   */
+  public $title;
+  public function __construct($title)
   {
-    $this->main_title = $main_title;
+    $this->title = $title;
   }
 
   /**
@@ -20,6 +24,6 @@ class App extends Component
    */
   public function render()
   {
-    return view('backend.layouts.app');
+    return view('frontend.layouts.app');
   }
 }

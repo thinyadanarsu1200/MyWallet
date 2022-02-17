@@ -15,6 +15,7 @@
 body {
     background-color: #f2f2f2;
     overflow-x: hidden;
+    padding-right: 0 !important;
 }
 
 /* ======== Scroll bar ============ */
@@ -44,6 +45,10 @@ body {
 
 .m-shadow {
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.m-rounded {
+    border-radius: 0.625rem;
 }
 
 .mobile-menu {
@@ -413,7 +418,8 @@ checks.checked {
     width: 300px !important;
 }
 
-.delete-profile-image-btn {
+.delete-profile-image-btn,
+.preview-cross {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -426,4 +432,44 @@ checks.checked {
     background-color: rgba(255, 255, 255, 0.2);
     cursor: pointer;
     backdrop-filter: blur(20px);
+}
+
+.preview-cross:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Toast */
+.swal2-popup.swal2-toast {
+    border-radius: 0.8em !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 1em !important;
+    gap: 0.9em !important;
+}
+
+.swal2-popup.swal2-toast .swal2-success,
+.swal2-popup.swal2-toast .swal2-error {
+    margin: 0 !important;
+}
+
+.swal2-popup.swal2-toast .swal2-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.9em !important;
+}
+
+.swal2-timer-progress-bar {
+    background-color: var(--green-400) !important;
+}
+
+.success-progress {
+    background-color: var(--green-400) !important;
+}
+
+.warning-progress {
+    background-color: yellow !important;
+}
+
+.error-progress {
+    background-color: var(--red-500) !important;
 }

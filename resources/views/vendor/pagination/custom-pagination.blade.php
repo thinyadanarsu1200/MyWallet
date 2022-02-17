@@ -11,7 +11,7 @@
       @if ($paginator->onFirstPage())
         <li class="disabled">
           <span class="page-link link">
-            <div>
+            <div class="pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
               </svg>
@@ -19,9 +19,9 @@
           </span>
         </li>
       @else
-        <li class="">
+        <li class="pointer-events-none">
           <a class="page-link link" href="{{ $paginator->previousPageUrl() }}" rel="prev">
-            <div>
+            <div class="pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
               </svg>
@@ -150,7 +150,7 @@
         </li>
       @else
         <li class="disabled">
-          <span class="page-link link">
+          <span class="page-link link pointer-events-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
             </svg>

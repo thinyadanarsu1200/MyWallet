@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdmin;
 use App\Http\Requests\UpdateAdmin;
 use App\Models\Admin;
-use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
 
 class AdminUserController extends Controller

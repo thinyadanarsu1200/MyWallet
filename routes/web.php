@@ -17,4 +17,6 @@ require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
   Route::get('/', [PageController::class, 'home']);
+
+  Route::get('/profile', [PageController::class, 'profile'])->name('profile');
 });

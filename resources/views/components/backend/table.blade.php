@@ -75,7 +75,12 @@
               <div class="flex items-center">
                 <input data-id="{{ $admin->id }}" {{ in_array($admin->id, $admins_id) ? 'checked' : '' }} type="checkbox" class="local-check rounded-sm bg-gray-100 mr-4">
               </div>
-              <x-dropdown2 class="ml-0 lg:hidden" direction="left">
+              @php
+                if ($loop->last || $loop->count - 1 == $loop->iteration) {
+                    $position = '-top-32';
+                }
+              @endphp
+              <x-dropdown2 class="ml-0 lg:hidden" direction="left" position="{{ $position ?? '' }}">
                 <x-slot name="trigger">
                   <button id="action-btn" type="button"
                     class="hover:text-gray-500 focus:outline-none mr-3 text-gray-400 flex items-center justify-center cursor-pointer">
@@ -84,13 +89,19 @@
                     </svg>
                   </button>
                 </x-slot>
-                <x-dropdown2-link href="#">Edit</x-dropdown2-link>
+                <x-dropdown2-link href="{{ route('admin.admin-user.edit', $admin->id) }}">Edit</x-dropdown2-link>
                 <x-dropdown2-link href="#">View</x-dropdown2-link>
-                <x-dropdown2-link href="#">Delete</x-dropdown2-link>
+                <x-dropdown2-link href="#" class="delete-one-dropdown" data-id="{{ $admin->id }}" data-name="{{ $admin->name }}">Delete</x-dropdown2-link>
               </x-dropdown2>
-              <div class="h-10 w-10">
-                <img class="min-w-max rounded-full"
-                  src="https://ui-avatars.com/api/?format=svg&rounded=true&size=35&name={{ $admin->name }}" alt="">
+              <div class="h-10 w-10 overflow-hidden rounded-full">
+                @if (!$admin->image)
+                  <img class="min-w-max rounded-full"
+                    src="https://ui-avatars.com/api/?format=svg&rounded=true&size=35&name={{ $admin->name }}" alt="">
+                @else
+                  <img src="{{ $admin->profileImage() }}"
+                    data-image_path="{{ $admin->image }}"
+                    class="w-full h-full object-cover" />
+                @endif
               </div>
               <div class="ml-4">
                 <div class="text-sm font-medium text-gray-900">

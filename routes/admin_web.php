@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\AdminSessionController;
 use App\Http\Controllers\Backend\AdminUserController;
 use App\Http\Controllers\Backend\PageController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\WalletController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +29,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('admin-user', AdminUserController::class);
     Route::delete('/delete-selected-admin-user/{admins_id}', [AdminUserController::class, 'destroySelected']);
     Route::get('/', [PageController::class, 'dashboard'])->name('dashboard');
+    Route::resource('user', UserController::class);
+    Route::get('show-admin-list', [AdminUserController::class, 'showAdminList']);
+    Route::get('show-user-list', [UserController::class, 'showUserList']);
+
+    Route::get('wallet', [WalletController::class, 'index'])->name('wallet');
+    Route::get('show-wallet-list', [WalletController::class, 'showWalletList']);
   });
 
-  Route::get('show-admin-list', [AdminUserController::class, 'showAdminList']);
 });

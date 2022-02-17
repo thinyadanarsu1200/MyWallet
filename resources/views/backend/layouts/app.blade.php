@@ -122,30 +122,61 @@
         body.classList.remove('active');
       }
     })
-
-    @if (session('success'))
-      Swal.fire({
-      text: 'Admin is created successfully',
-      target: '.show-toast',
-      customClass: {
-      container: 'position-absolute'
-      },
-      showConfirmButton: false,
+    const Toast = Swal.mixin({
       toast: true,
-      icon: 'success',
-      position: 'bottom-right',
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
       timerProgressBar: true,
+      customClass: {
+        timerProgressBar: 'success-progress-bar'
+      },
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+
+    @if (session('create'))
+      Toast.fire({
+      icon: 'success',
+      title: '{{ session('create') }}',
+      customClass:{
+      timerProgressBar: 'success-progress'
+      }
+      })
+    @endif
+
+    @if (session('update'))
+      Toast.fire({
+      icon: 'success',
+      title: '{{ session('update') }}',
+      customClass:{
+      timerProgressBar: 'success-progress'
+      }
       })
     @endif
 
 
     @if (session('error'))
       Toast.fire({
-      title: 'Error Message',
-      text: '{{ session('error') }}',
       icon: 'error',
-      confirmButtonText: 'Ok'
-      });
+      title: '{{ session('error') }}',
+      customClass:{
+      timerProgressBar: 'error-progress'
+      }
+      })
+    @endif
+
+    @if (session('warning'))
+      Toast.fire({
+      icon: 'warning',
+      title: '{{ session('warning') }}',
+      customClass:{
+      timerProgressBar: 'warning-progress'
+      }
+      })
     @endif
   </script>
   {{ $js ?? null }}

@@ -347,28 +347,23 @@
         if (e.target.classList.contains('delete-one')) {
           const delete_id = e.target.dataset.id;
           const delete_name = e.target.dataset.name;
-          sweet_alert_delete_setting.title = `Are you sure to delete ${delete_name}'s record?`;
-          Swal.fire(sweet_alert_delete_setting).then((result) => {
-            if (result.isConfirmed) {
-              axios({
-                method: 'DELETE',
-                url: `/admin/admin-user/${delete_id}`
-              }).then(res => {
-                if (res.data) {
-                  admins_id = [];
-                  showTable();
-                  selected.classList.remove('active');
-                  Swal.fire(
-                    res.data.status,
-                    res.data.message,
-                    'success'
-                  )
-                }
-              })
-            }
-          }).catch(err => {
-            console.error(err);
+
+          deleteOne(delete_id);
+          const local_checks = document.querySelectorAll('.local-check');
+          const selected_admins_id = [];
+          local_checks.forEach(checkbox => {
+            checkbox.checked && selected_admins_id.push(checkbox.dataset.id);
           })
+        }
+      })
+
+      //delete-one-dropdown
+      document.addEventListener('click', e => {
+        if (e.target.classList.contains('delete-one-dropdown')) {
+          const delete_id = e.target.dataset.id;
+          const delete_name = e.target.dataset.name;
+
+          deleteOne(delete_id, delete_name);
           const local_checks = document.querySelectorAll('.local-check');
           const selected_admins_id = [];
           local_checks.forEach(checkbox => {
@@ -392,6 +387,31 @@
         } else {
           selected.classList.remove('active');
         }
+      }
+
+      function deleteOne(delete_id, delete_name) {
+        sweet_alert_delete_setting.title = `Are you sure to delete ${delete_name}'s record?`;
+        Swal.fire(sweet_alert_delete_setting).then((result) => {
+          if (result.isConfirmed) {
+            axios({
+              method: 'DELETE',
+              url: `/admin/admin-user/${delete_id}`
+            }).then(res => {
+              if (res.data) {
+                admins_id = [];
+                showTable();
+                selected.classList.remove('active');
+                Swal.fire(
+                  res.data.status,
+                  res.data.message,
+                  'success'
+                )
+              }
+            })
+          }
+        }).catch(err => {
+          console.error(err);
+        })
       }
     </script>
   </x-slot>

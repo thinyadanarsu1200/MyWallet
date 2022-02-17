@@ -10,4 +10,10 @@ class PageController extends Controller
   {
     return view('frontend.home');
   }
+
+  public function profile()
+  {
+    $user = auth()->guard('web')->user();
+    return view('frontend.profile', compact('user'));
+  }
 }
