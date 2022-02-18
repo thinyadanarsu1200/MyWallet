@@ -23,14 +23,20 @@
         <x-slot name="trigger">
           <button type="button"
             class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-            <img class="h-8 w-8 min-w-max rounded-full"
-              src="https://ui-avatars.com/api/?name={{ auth()->guard('admin')->user()->name }}" alt="">
+            @if (!auth()->guard('admin')->user()->image)
+              <img class="min-w-max rounded-full"
+                src="https://ui-avatars.com/api/?format=svg&rounded=true&size=35&name={{ $admin->name }}" alt="">
+            @else
+              <img src="{{ $admin->profileImage() }}"
+                data-image_path="{{ $admin->image }}"
+                class="w-full h-full object-cover" />
+            @endif
           </button>
         </x-slot>
 
         <x-dropdown2-link href="#">Your Profile</x-dropdown2-link>
         <x-dropdown2-link href="#">Setting</x-dropdown2-link>
-        <x-dropdown2-link class="sign-out-btn">Sign Out</x-dropdown2-link>
+        <x-dropdown2-link href="/logout" class="sign-out-btn">Sign Out</x-dropdown2-link>
       </x-dropdown2>
     </div>
   </div>

@@ -1,175 +1,77 @@
 <x-app title="Profile" class="bg-white">
 
-  <div class="profile-page relative">
-    <div class="cover-img w-full h-60 bg-red-300 rounded-md relative overflow-hidden cursor-pointer" id="preview-cover-image">
-      <img src="{{ asset('images/default-cover-photo.jpg') }}" alt="" class="absolute w-full h-full object-cover">
-      <input type="file" id="choose-cover-image" hidden>
-    </div>
-    <button class="edit-cover-img-btn flex justify-center items-center bg-white shadow-xl">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd"
-          d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
-          clip-rule="evenodd" />
-      </svg>
-      <x-dropdown2>
-        <x-slot name="trigger">
-          <span class="text-black text-xs">Edit cover photo</span>
-        </x-slot>
-        <x-dropdown2-link>
-          <x-dropdown2-link href="#" class="flex items-center" data-modal-toggle="view-profile-modal">
-            <img src="{{ asset('images/view-profile.png') }}" alt="" class="cover">
-            View cover photo
-          </x-dropdown2-link>
-          <x-dropdown2-link href="#" class="flex items-center" id="update-cover-photo" id="update-cover-photo">
-            <img src="{{ asset('images/update-profile.png') }}" alt="" class="cover">
-            Update cover photo
-          </x-dropdown2-link>
-          <x-dropdown2-link href="#" class="flex items-center">
-            <img src="{{ asset('images/trash.png') }}" alt="" class="cover">
-            Remove cover photo
-          </x-dropdown2-link>
-        </x-dropdown2-link>
-      </x-dropdown2>
-    </button>
-
-    <!-- Main modal -->
-    <div id="view-profile-modal" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
-      <div class="relative px-4 w-full max-w-2xl h-full md:h-auto">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 overflow-hidden">
-          <!-- Modal header -->
-          <div class="flex justify-between items-start px-5 py-2 rounded-t border-b dark:border-gray-600">
-            <h3 class="text-xl font-semibold text-gray-900 lg:text-xl dark:text-white">
-              Cover photo
-            </h3>
-            <button type="button"
-              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="view-profile-modal">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clip-rule="evenodd"></path>
-              </svg>
-            </button>
-          </div>
-          <!-- Modal body -->
-          <div class="w-full h-full">
-            <img src="{{ asset('images/default-cover-photo.jpg') }}" alt="" class="w-full h-full object-cover">
-          </div>
+  <x-frontend.profile_cover_image :user="$user" />
+  {{-- card --}}
+  <x-card class="mt-5">
+    <a href="{{ route('edit-profile') }}" class="flex items-center justify-between mb-3">
+      <div class="flex justify-center items-center">
+        <div class="profile-page-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+          </svg>
         </div>
+        <span>Edit Profile</span>
       </div>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+      </svg>
+    </a>
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex justify-center items-center">
+        <div class="profile-page-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+            <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <span>Building Detail</span>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+      </svg>
     </div>
-
-    <input type="file" hidden id="choose-image">
-    <div class="relative overflow-hidden profile-img  flex items-center justify-center m-shadow bg-white" id="preview-image">
-      @if (!$user->image)
-        <svg id="default-profile" class="inline-block h-full w-full rounded-full overflow-hidden text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      @else
-        {{-- Cross --}}
-        <div class="absolute cross flex justify-center items-center" id="cross-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 pointer-events-none text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex justify-center items-center">
+        <div class="profile-page-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+          </svg>
+        </div>
+        <span>Qr</span>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <hr class="mb-3">
+    <a href="{{ route('change-password') }}" class="flex items-center justify-between mb-3">
+      <div class="flex justify-center items-center">
+        <div class="profile-page-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <span>Change Password</span>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+      </svg>
+    </a>
+    <a href="/logout" class="cursor-pointer flex items-center justify-between mb-3">
+      <div class="flex justify-center items-center">
+        <div class="profile-page-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
               clip-rule="evenodd" />
           </svg>
         </div>
-        <img src="{{ $user->profileImage() }}" alt="" class="inline-block h-full w-full rounded-full overflow-hidden text-gray-300 cursor-pointer" id="profile-image">
-      @endif
-    </div>
-    <div class="upload-profile-btn bg-white">
-      hi
-    </div>
-
-    <div class="ml-36">
-      <p class="font-bold text-gray-800">{{ $user->name }}</p>
-      <p class="text-gray-500">{{ $user->email }}</p>
-    </div>
-  </div>
-
-  <x-slot name="js">
-    <script>
-      const preview_image = document.querySelector('#preview-image');
-      const choose_image = document.querySelector('#choose-image');
-      const preview_cover_image = document.querySelector('#preview-cover-image');
-      const choose_cover_image = document.querySelector('#choose-cover-image');
-      const update_cover_photo = document.querySelector('#update-cover-photo');
-
-      preview_image.addEventListener('click', function(e) {
-        choose_image.click();
-      });
-
-      preview_cover_image.addEventListener('click', function(e) {
-        choose_cover_image.click();
-      })
-
-      update_cover_photo.addEventListener('click', function(e) {
-        choose_cover_image.click();
-      })
-
-      // To choose profile image
-      choose_image.addEventListener('change', function(e) {
-        var files = e.target.files;
-        if (!files) return;
-
-        preview_image.innerHTML = '';
-
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
-          const imgEle = document.createElement('img');
-          const divEle = document.createElement('div');
-
-          divEle.className = 'absolute cross flex justify-center items-center'
-          divEle.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 object-cover pointer-events-none text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clip-rule="evenodd" />
-          </svg>
-          `;
-
-          imgEle.className = 'inline-block h-full w-full rounded-full overflow-hidden text-gray-300 cursor-pointer';
-          imgEle.src = URL.createObjectURL(file);
-          console.log(imgEle);
-
-          preview_image.appendChild(divEle);
-          preview_image.appendChild(imgEle);
-        }
-      })
-
-      choose_cover_image.addEventListener('change', function(e) {
-        const files = e.target.files;
-        if (!files) return;
-        preview_cover_image.innerHTML = '';
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
-
-          const coverEle = document.createElement('img');
-          coverEle.src = URL.createObjectURL(file);
-          coverEle.className = 'absolute w-full h-full object-cover';
-
-          preview_cover_image.appendChild(coverEle);
-        }
-      })
-
-      document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('cross')) {
-          choose_image.click = false;
-          choose_image.value = "";
-          preview_image.innerHTML = "";
-          preview_image.innerHTML = `
-          <svg id="default-profile" class="inline-block h-full w-full rounded-full overflow-hidden text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-          `
-        }
-
-        if (e.target.classList.contains('default-profile')) {
-          choose_image.click = true;
-          choose_image.click();
-        }
-      })
-    </script>
-  </x-slot>
+        <span>Logout</span>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+      </svg>
+    </a>
+  </x-card>
 </x-app>

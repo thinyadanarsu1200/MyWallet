@@ -7,10 +7,12 @@
 
   <div class="flex gap-3">
     <x-card class="mr-1 flex flex-1 flex-col justify-center items-center">
-      <div class="icon-wrapper bg-lightgreen">
-        <img src="{{ asset('images/paper-plane.png') }}" alt="" width="40px" height="40px" class="icon">
-      </div>
-      <p class="text-darkblue text-sm">Transfer</p>
+      <a href="{{ route('transfer') }}">
+        <div class="icon-wrapper bg-lightgreen">
+          <img src="{{ asset('images/paper-plane.png') }}" alt="" width="40px" height="40px" class="icon">
+        </div>
+        <p class="text-darkblue text-sm">Transfer</p>
+      </a>
     </x-card>
     <x-card class="mr-1 flex flex-1 flex-col justify-center items-center">
       <div class="icon-wrapper bg-lightred">

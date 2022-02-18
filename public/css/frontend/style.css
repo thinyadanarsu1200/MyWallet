@@ -141,6 +141,51 @@ body {
     height: 15px;
     margin-right: 5px;
 }
+
+/* bottom of profile page */
+.profile-page-icon-wrapper {
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    background-color: var(--gray-200);
+}
+
+/* Loader */
+.loader {
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 2px solid var(--indigo-500);
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+}
+
+.loader,
+.error-icon {
+    right: 10px;
+    top: 35px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Transfer */
+.transfer-image,
+.password-image {
+    width: 150px;
+    height: 150px;
+}
+
 .font-sans {
     font-family: var(--font-sans);
 }
@@ -295,6 +340,134 @@ body {
 
 .select2-results__options::-webkit-scrollbar-button {
     display: none;
+}
+
+/* Sweet Alert */
+.success-progress {
+    background-color: var(--green-400) !important;
+}
+
+/* =========== Sweet Alert =============== */
+.swal2-popup {
+    width: 30em !important;
+    border-radius: 1rem !important;
+    padding: 0 0 1em !important;
+    font-family: var(--font-poppins) !important;
+}
+
+.swal2-title {
+    font-size: 1.2em !important;
+    padding: 1em 1em 0 !important;
+}
+
+.swal2-html-container {
+    font-size: 0.875em !important;
+}
+
+.swal2-icon {
+    margin: 1em auto 0 !important;
+}
+
+.swal2-styled.swal2-confirm,
+.swal2-styled.swal2-cancel {
+    font-size: 0.875em !important;
+    border-radius: 0.5em !important;
+    padding-top: 10px !important;
+    border-radius: 0.6em !important;
+}
+
+.swal2-styled.swal2-cancel {
+    background-color: var(--gray-200) !important;
+    color: #333 !important;
+}
+
+.swal2-styled.swal2-cancel:focus {
+    box-shadow: 0 0 0 2px #ccc !important;
+}
+
+.swal2-delete-btn {
+    background-color: var(--red-500) !important;
+}
+
+.btn,
+.btn-primary {
+    padding: 0.6rem 1rem;
+}
+
+/* Toast */
+.show-toast {
+    position: relative;
+    width: 600px;
+    height: 300px;
+    border-style: solid;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.swal2-popup.swal2-toast.swal2-show {
+    padding: 5px 10px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 300px !important;
+}
+
+.delete-profile-image-btn,
+.preview-cross {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    backdrop-filter: blur(20px);
+}
+
+.preview-cross:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Toast */
+.swal2-popup.swal2-toast {
+    border-radius: 0.8em !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 1em !important;
+    gap: 0.9em !important;
+}
+
+.swal2-popup.swal2-toast .swal2-success,
+.swal2-popup.swal2-toast .swal2-error {
+    margin: 0 !important;
+}
+
+.swal2-popup.swal2-toast .swal2-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.9em !important;
+}
+
+.swal2-timer-progress-bar {
+    background-color: var(--green-400) !important;
+}
+
+.success-progress {
+    background-color: var(--green-400) !important;
+}
+
+.warning-progress {
+    background-color: yellow !important;
+}
+
+.error-progress {
+    background-color: var(--red-500) !important;
 }
 
 /* ============ Pagination =============== */

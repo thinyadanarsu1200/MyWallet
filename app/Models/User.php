@@ -66,6 +66,15 @@ class User extends Authenticatable
     }
   }
 
+  public function coverImage()
+  {
+    if ($this->image) {
+      return asset('storage/' . $this->cover_image);
+    } else {
+      return null;
+    }
+  }
+
   public function wallet()
   {
     $this->hasOne(Wallet::class, 'user_id', 'id');

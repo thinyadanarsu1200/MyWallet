@@ -45,6 +45,8 @@
   {{-- Flowbite --}}
   <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
 
+  <!-- Sweet Alert 2 -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script src="{{ asset('js/app.js') }}"></script>
 
@@ -63,6 +65,42 @@
         })
         .catch(err => console.error(err));
     })
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      customClass: {
+        timerProgressBar: 'success-progress-bar'
+      },
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    @if (session('update'))
+      Toast.fire({
+      icon: 'success',
+      title: '{{ session('update') }}',
+      customClass:{
+      timerProgressBar: 'success-progress'
+      }
+      })
+    @endif
+
+
+    @if (session('error'))
+      Toast.fire({
+      icon: 'error',
+      title: '{{ session('error') }}',
+      customClass:{
+      timerProgressBar: 'error-progress'
+      }
+      })
+    @endif
   </script>
 
   {{ $js ?? null }}

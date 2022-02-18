@@ -57,7 +57,7 @@
           </x-slot>
           <x-dropdown2-link href="#">Your Profile</x-dropdown2-link>
           <x-dropdown2-link href="#">Setting</x-dropdown2-link>
-          <x-dropdown2-link href="#" class="sign-out-btn">Sign Out</x-dropdown2-link>
+          <x-dropdown2-link href="/logout" class="sign-out-btn">Sign Out</x-dropdown2-link>
         </x-dropdown2>
       </div>
     </div>
