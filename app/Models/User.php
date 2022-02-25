@@ -77,6 +77,7 @@ class User extends Authenticatable
 
   public function wallet()
   {
-    $this->hasOne(Wallet::class, 'user_id', 'id');
+    return $this->hasOne(Wallet::class, 'user_id', 'id');
   }
+
 }

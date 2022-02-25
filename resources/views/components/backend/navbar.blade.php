@@ -25,10 +25,10 @@
             class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
             @if (!auth()->guard('admin')->user()->image)
               <img class="min-w-max rounded-full"
-                src="https://ui-avatars.com/api/?format=svg&rounded=true&size=35&name={{ $admin->name }}" alt="">
+                src="https://ui-avatars.com/api/?format=svg&rounded=true&size=35&name={{ auth()->guard('admin')->user()->name }}" alt="">
             @else
-              <img src="{{ $admin->profileImage() }}"
-                data-image_path="{{ $admin->image }}"
+              <img src="{{ auth()->guard('admin')->user()->profileImage() }}"
+                data-image_path="{{ auth()->guard('admin')->user()->image }}"
                 class="w-full h-full object-cover" />
             @endif
           </button>

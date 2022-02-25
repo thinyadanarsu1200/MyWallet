@@ -27,17 +27,17 @@
           <div class="col-span-6 sm:col-span-3 mb-2">
             <label for="new_password" class="form-label">New Password</label>
             <input type="password" name="password" id="new_password" autocomplete="new_password"
-              class="form-control @error('new_password') error @enderror">
-            @error('new_password')
+              class="form-control @error('password') error @enderror">
+            @error('password')
               <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
           </div>
 
           <div class="col-span-6 sm:col-span-6 mb-2">
             <label for="password_confirmation" class="form-label">Confirm New Password</label>
-            <input type="password" name="password_confirmation" id="phone" autocomplete="password_confirmation"
+            <input type="password" name="password_confirmation" id="password_confirmation" autocomplete="password_confirmation"
               class="form-control @error('password_confirmation') error @enderror">
-            @error('phone')
+            @error('password_confirmation')
               <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
           </div>

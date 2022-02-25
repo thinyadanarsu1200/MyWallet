@@ -1,8 +1,9 @@
 <x-app title="Home">
   <x-card class="bg-theme relative flex flex-col justify-center overflow-hidden rounded-md" style="height: 120px;">
     <img src="{{ asset('images/money.png') }}" alt="" class="absolute money-image">
+    <h3 class="mb-2 text-white font-semibold">{{ $name }}</h3>
     <span class="text-lightblue text-xs">Total Balance</span>
-    <h1 class="text-white text-2xl font-sans font-semibold">1000,000 <small class="text-xs">MMK</small></h1>
+    <h1 class="text-white text-2xl font-sans font-semibold">{{ number_format($amount) }}<small class="text-xs">MMK</small></h1>
   </x-card>
 
   <div class="flex gap-3">
@@ -44,7 +45,7 @@
 
   <div>
     <x-card>
-      <a href="" class="flex items-center justify-between gap-3">
+      <a href="{{ route('transaction') }}" class="flex items-center justify-between gap-3">
         <div class="flex items-center">
           <img src="{{ asset('images/money-transaction.png') }}" alt="" class="w-6 h-6 mr-2">
           <p class="text-sm text-gray-600 font-semibold">Transition</p>

@@ -42,6 +42,11 @@ body {
     border-radius: 0.625rem;
 }
 
+.user-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
 .money-image {
     width: 250px;
     height: 250px;
@@ -154,8 +159,18 @@ body {
     background-color: var(--gray-200);
 }
 
+.phone {
+    position: relative;
+}
+
 /* Loader */
 .loader {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10000;
     border: 2px solid #f3f3f3;
     border-radius: 50%;
     border-top: 2px solid var(--indigo-500);
@@ -164,12 +179,27 @@ body {
     animation: spin 2s linear infinite;
 }
 
-.loader,
-.error-icon {
-    right: 10px;
-    top: 35px;
+.loader.active {
+    opacity: 1;
+    visibility: visible;
 }
 
+.error-icon,
+.tick-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.error-icon.active,
+.tick-icon.active {
+    opacity: 1;
+    visibility: visible;
+}
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -194,10 +224,20 @@ body {
     border: 1px solid var(--red-500) !important;
 }
 
+.correct {
+    border: 1px solid var(--green-500) !important;
+}
+
 .error:focus {
     outline: none !important;
     border-color: var(--red-500) !important;
     box-shadow: 0 0 0 1px var(--red-500) !important;
+}
+
+.correct:focus {
+    outline: none !important;
+    border-color: var(--green-500) !important;
+    box-shadow: 0 0 0 1px var(--green-500) !important;
 }
 
 .preview-cross,
@@ -228,6 +268,13 @@ body {
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1) !important;
 }
 
+.description {
+    display: none;
+}
+
+.description.show {
+    display: block;
+}
 /* ============ Navbar =============== */
 .nav-link {
     position: relative;
